@@ -1,0 +1,88 @@
+@import 'variables';
+@import 'libs/normalize';
+
+@import 'components/all';
+
+body {
+  background-color: $background;
+}
+
+.wrapper {
+  width: calc(100vw - 100px);
+  height: 100%;
+  background-color: #fff;
+  margin: 50px auto;
+  border-radius: 10px;
+  max-width: 1400px;
+}
+
+.content {
+  padding: 40px 0;
+
+  &__title {
+    margin: 35px 0;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    justify-items: center;
+    gap: 65px 35px;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.container {
+  position: relative;
+  width: $container-width;
+
+  margin: 0 auto;
+}
+
+@media (max-width: 1280px) {
+  .content {
+    &__items {
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 40px 20px;
+    }
+    &__top {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: calc(100vw - 50px);
+    margin: 25px auto;
+  }
+
+  .content {
+    &__top {
+      flex-direction: column;
+    }
+  }
+
+  .container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 425px) {
+  .wrapper {
+    width: calc(100vw - 25px);
+    margin: 13px auto;
+  }
+
+  .content {
+    padding: 0 0 20px;
+    .container {
+      width: 90%;
+    }
+  }
+}
