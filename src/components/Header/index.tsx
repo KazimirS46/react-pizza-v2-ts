@@ -4,21 +4,26 @@ import styles from './Header.module.scss';
 
 import pizzaLogo from '../../assets/img/pizza-logo.svg';
 
+const TEXT = {
+  title: 'React Pizza V2',
+  subtitle: 'самая вкусная пицца в мире',
+};
+
 export const Header: React.FC = () => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <img width='38' src={pizzaLogo} alt='Pizza logo' />
+          <img src={pizzaLogo} alt='Pizza logo' />
           <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+            <h1>{TEXT.title}</h1>
+            <p>{TEXT.subtitle}</p>
           </div>
         </div>
-        <div className='header__cart'>
-          <a href='/cart.html' className='button button--cart'>
+        <div className={styles.cart}>
+          <a href='/cart.html' className={`${styles.button} ${styles.buttonCart}`}>
             <span>520 ₽</span>
-            <div className='button__delimiter'></div>
+            <div className={styles.delimiter}></div>
             <svg
               width='18'
               height='18'
