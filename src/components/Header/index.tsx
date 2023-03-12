@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
@@ -13,15 +14,15 @@ export const Header: React.FC = () => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.logo}>
+        <Link to='/' className={styles.logo}>
           <img src={pizzaLogo} alt='Pizza logo' />
           <div>
             <h1>{TEXT.title}</h1>
             <p>{TEXT.subtitle}</p>
           </div>
-        </div>
+        </Link>
         <div className={styles.cart}>
-          <a href='/cart.html' className={`${styles.button} ${styles.buttonCart}`}>
+          <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
             <span>520 ₽</span>
             <div className={styles.delimiter}></div>
             <svg
@@ -54,7 +55,7 @@ export const Header: React.FC = () => {
               />
             </svg>
             <span>3</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
