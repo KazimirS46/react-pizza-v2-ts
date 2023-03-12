@@ -20,3 +20,13 @@ export interface IPizzaItem {
   rating: number;
   description: string;
 }
+
+export interface IThicknessPrice {
+  thickness: string;
+  price: number;
+}
+
+export interface IWidthPrice {
+  width: string;
+  price: number;
+}
