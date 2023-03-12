@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { IPizzaItem } from '../types/types';
 import { fetchPizzas } from '../redux/slices/pizzaSlices';
 import { PizzaBlock } from '../components/Home/PizzaBlock';
+import { LoadingScreen } from '../components/Home/LoadingScreen';
 
 const mainTitle: string = 'Все пиццы';
 
@@ -24,13 +25,26 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <div className='content__top'>
-        <Categories />
-        <Sort />
-      </div>
+      {loading !== 'pending' ? (
+        <>
+          <div className='content__top'>
+            <Categories />
+            <Sort />
+          </div>
+          <h2 className='content__title'>{mainTitle}</h2>
+        </>
+      ) : null}
       {/* Настроить изменения content__title */}
-      <h2 className='content__title'>{mainTitle}</h2>
-      <ul className='content__items'>{loading === 'pending' ? <h1>Loading</h1> : listItem}</ul>
+
+      <ul className='content__items'>
+        {loading === 'pending' ? (
+          <div className='loading'>
+            <LoadingScreen />
+          </div>
+        ) : (
+          listItem
+        )}
+      </ul>
     </>
   );
 };
