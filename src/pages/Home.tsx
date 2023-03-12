@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
-import { Categories } from '../components/Home/Categories';
-import { Sort } from '../components/Home/Sort';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { IPizzaItem } from '../types/types';
 import { fetchPizzas } from '../redux/slices/pizzaSlices';
+import { Categories } from '../components/Home/Categories';
+import { Sort } from '../components/Home/Sort';
 import { PizzaBlock } from '../components/Home/PizzaBlock';
 import { LoadingScreen } from '../components/Home/LoadingScreen';
 
