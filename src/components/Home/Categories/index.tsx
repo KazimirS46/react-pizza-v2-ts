@@ -2,16 +2,26 @@ import React from 'react';
 
 import styles from './Categories.module.scss';
 
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { setCategory } from '../../../redux/slices/filterSlice';
+
+const categories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
 export const Categories: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const categoryIndex = useAppSelector((state) => state.filter.category);
   return (
     <div className={styles.categories}>
       <ul>
-        <li className={styles.active}>Все</li>
-        <li>Мясные</li>
-        <li>Вегетарианская</li>
-        <li>Гриль</li>
-        <li>Острые</li>
-        <li>Закрытые</li>
+        {categories.map((category: string, index: number) => (
+          <li
+            key={index}
+            className={categoryIndex === index ? styles.active : ''}
+            onClick={() => dispatch(setCategory(index))}
+          >
+            {category}
+          </li>
+        ))}
       </ul>
     </div>
   );
