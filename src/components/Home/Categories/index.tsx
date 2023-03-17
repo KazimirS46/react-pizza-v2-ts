@@ -5,7 +5,14 @@ import styles from './Categories.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { setCategory } from '../../../redux/slices/filterSlice';
 
-const categories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+export const categories: string[] = [
+  'Все',
+  'Мясные',
+  'Вегетарианские',
+  'Гриль',
+  'Острые',
+  'Закрытые',
+];
 
 export const Categories: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -4,7 +4,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { IPizzaItem } from '../types/types';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
-import { Categories } from '../components/Home/Categories';
+import { Categories, categories } from '../components/Home/Categories';
 import { Sort } from '../components/Home/Sort';
 import { PizzaBlock } from '../components/Home/PizzaBlock';
 import { LoadingScreen } from '../components/Home/LoadingScreen';
@@ -37,7 +37,7 @@ export const Home: React.FC = () => {
         <Categories />
         <Sort />
       </div>
-      <h2 className='content__title'>{mainTitle}</h2>
+      <h2 className='content__title'>{`${categories[category]} пиццы`}</h2>
       {/* Настроить изменения content__title */}
 
       <ul className='content__items'>
