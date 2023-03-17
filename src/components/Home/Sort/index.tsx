@@ -29,7 +29,7 @@ export const Sort: React.FC = () => {
     <div className={styles.sort}>
       <div className={styles.label}>
         <svg
-          className={order ? styles.descending : styles.ascending}
+          className={order ? styles.ascending : styles.descending}
           onClick={selectOrder}
           width='10'
           height='6'

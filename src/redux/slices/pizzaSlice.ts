@@ -27,7 +27,7 @@ export const fetchPizzas = createAsyncThunk<IPizzaItem[], IParams>(
   'pizzas/fetchPizzas',
   async (params) => {
     const { limit, categoryStr, sortStr, orderStr } = params;
-    const { data } = await axios.get(`${URL}?${categoryStr}&limit=${limit}${sortStr}${orderStr}`);
+    const { data } = await axios.get(`${URL}?${sortStr}${categoryStr}&limit=${limit}${orderStr}`);
     return data;
   }
 );

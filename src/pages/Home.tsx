@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
   const getPizzas = () => {
     const limit = 10;
     const categoryStr = category > 0 ? `&category=${category}` : '';
-    const sortStr = sort.sort ? `&sortBy=${sort.sort}` : '';
+    const sortStr = `sortBy=${sort.sort}`;
     const orderStr = order ? '&order=asc' : '&order=desc';
 
     dispatch(fetchPizzas({ categoryStr, limit, sortStr, orderStr }));
