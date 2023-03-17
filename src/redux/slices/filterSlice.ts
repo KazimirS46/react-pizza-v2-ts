@@ -1,18 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-interface IFilterState {
-  sort: {
-    name: string;
-    sortProperty: string;
-  };
-  order: boolean;
-  searchValue: string;
-  category: number;
-}
+import { IFilterState, ISortItem } from '../../types/types';
 
 const initialState: IFilterState = {
-  sort: { name: 'популярности', sortProperty: 'rating' },
-  order: true,
+  sort: { id: 1, sort: 'rating', sortName: 'популярности' },
+  order: false,
   searchValue: '',
   category: 0,
 };
@@ -24,8 +15,14 @@ export const filterSlice = createSlice({
     setCategory: (state, action: PayloadAction<number>) => {
       state.category = action.payload;
     },
+    setSort: (state, action: PayloadAction<ISortItem>) => {
+      state.sort = action.payload;
+    },
+    setOrder: (state) => {
+      state.order = !state.order;
+    },
   },
 });
 
-export const { setCategory } = filterSlice.actions;
+export const { setCategory, setSort, setOrder } = filterSlice.actions;
 export default filterSlice.reducer;

@@ -1,0 +1,5 @@
+[
+  { "id": 1, "sort": "rating", "sortName": "популярности" },
+  { "id": 2, "sort": "price", "sortName": "цене" },
+  { "id": 3, "sort": "title", "sortName": "алфавиту" }
+]

@@ -30,3 +30,16 @@ export interface IWidthPrice {
   width: string;
   price: number;
 }
+
+export interface ISortItem {
+  id: number;
+  sort: string;
+  sortName: string;
+}
+
+export interface IFilterState {
+  sort: ISortItem;
+  order: boolean;
+  searchValue: string;
+  category: number;
+}

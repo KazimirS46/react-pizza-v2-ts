@@ -9,23 +9,23 @@ import { Sort } from '../components/Home/Sort';
 import { PizzaBlock } from '../components/Home/PizzaBlock';
 import { LoadingScreen } from '../components/Home/LoadingScreen';
 
-const mainTitle: string = 'Все пиццы';
-
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   let { pizzas, loading } = useAppSelector((state) => state.pizzas);
-  const { category } = useAppSelector((state) => state.filter);
+  const { category, sort, order } = useAppSelector((state) => state.filter);
 
   const getPizzas = () => {
     const limit = 10;
-    const categoryStr = category > 0 ? `&category=${category}` : '&category=';
+    const categoryStr = category > 0 ? `&category=${category}` : '';
+    const sortStr = sort.sort ? `&sortBy=${sort.sort}` : '';
+    const orderStr = order ? '&order=asc' : '&order=desc';
 
-    dispatch(fetchPizzas({ categoryStr, limit }));
+    dispatch(fetchPizzas({ categoryStr, limit, sortStr, orderStr }));
   };
 
   React.useEffect(() => {
     getPizzas();
-  }, [category]);
+  }, [category, sort, order]);
 
   const listItem = pizzas.map((pizza: IPizzaItem) => (
     <PizzaBlock key={pizza.productId} {...pizza} />
