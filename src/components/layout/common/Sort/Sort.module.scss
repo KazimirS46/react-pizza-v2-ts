@@ -1,0 +1,105 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/libs/normalize';
+
+.sort {
+  position: relative;
+  min-width: 255px;
+
+  .label {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      padding: 5px 5px;
+      transition: transform 0.3s;
+      &.ascending {
+        transform: rotate(0);
+      }
+      &.descending {
+        transform: rotate(180deg);
+      }
+    }
+
+    b {
+      margin-right: 8px;
+    }
+
+    span {
+      color: $orange;
+      border-bottom: 1px dashed $orange;
+      cursor: pointer;
+    }
+  }
+
+  .popup {
+    position: absolute;
+    right: 0;
+    margin-top: 15px;
+    background: #ffffff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px 0;
+    width: 160px;
+
+    ul {
+      overflow: hidden;
+      li {
+        padding: 12px 20px;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+          background: rgba(254, 95, 30, 0.05);
+        }
+
+        &.active {
+          font-weight: bold;
+          color: $orange;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    min-width: 230px;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 225px;
+    padding: 10px 0;
+    margin-left: 0;
+
+    .popup {
+      right: 48px;
+      margin-top: 15px;
+      padding: 10px 0;
+      width: 130px;
+
+      ul {
+        overflow: hidden;
+        li {
+          padding: 10px 15px;
+          cursor: pointer;
+
+          &.active,
+          &:hover {
+            background: rgba(254, 95, 30, 0.05);
+          }
+
+          &.active {
+            font-weight: bold;
+            color: $orange;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 15px;
+  }
+}
