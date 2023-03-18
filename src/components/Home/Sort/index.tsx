@@ -13,7 +13,7 @@ export const Sort: React.FC = () => {
   const { sort, order } = useAppSelector((state) => state.filter);
 
   const openPopup = (): void => {
-    setPopupStatus((prev) => !prev);
+    setPopupStatus(true);
   };
 
   const selectSorting = (item: ISortItem): void => {
