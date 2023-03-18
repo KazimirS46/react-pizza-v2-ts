@@ -1,17 +1,34 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+// import { Link } from 'react-router-dom';
 
 import styles from './PizzaBlock.module.scss';
 
 import { IPizzaItem } from '../../../types/types';
+import { ModalWindow } from '../ModalWindow';
+import { ModalContext } from '../../../context/ModalContext';
 
-export const PizzaBlock = (params: IPizzaItem) => {
-  const { imageUrl, title, price, productId } = params;
+export const PizzaBlock: React.FC<IPizzaItem> = (params) => {
+  const { visible, open } = React.useContext(ModalContext);
+  const openModal: React.MouseEventHandler<HTMLLIElement> = (evt): void => {
+    open();
+  };
+
+  React.useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [visible]);
+
+  const { imageUrl, title, price /*productId*/ } = params;
+
   return (
-    <li className={styles.pizzaBlock}>
-      <Link to={`/pizza/${productId}`}>
+    <li className={styles.pizzaBlock} onClick={openModal}>
+      <div /*to={`/pizza/${productId}`}*/>
         <img className={styles.image} src={imageUrl} alt='Pizza' />
         <h4 className={styles.title}>{title}</h4>
-      </Link>
+      </div>
       <div className={styles.bottom}>
         <div className={styles.price}>от {price} ₽</div>
         <div className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}>
@@ -27,10 +44,11 @@ export const PizzaBlock = (params: IPizzaItem) => {
               fill='white'
             />
           </svg>
-          <span>Добавить</span>
+          <span>Выбрать</span>
           <i>2</i>
         </div>
       </div>
+      {visible ? <ModalWindow /> : null}
     </li>
   );
 };

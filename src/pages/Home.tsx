@@ -38,7 +38,6 @@ export const Home: React.FC = () => {
         <Sort />
       </div>
       <h2 className='content__title'>{`${categories[category]} пиццы`}</h2>
-      {/* Настроить изменения content__title */}
 
       <ul className='content__items'>
         {loading === 'pending' ? (

@@ -4,12 +4,15 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import { store } from './redux/mainStore';
+import { ModalState } from './context/ModalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ModalState>
+        <App />
+      </ModalState>
     </Provider>
   </BrowserRouter>
 );
