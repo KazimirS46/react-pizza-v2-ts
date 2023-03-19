@@ -23,7 +23,7 @@ const Modal: FC<IProps> = ({ onClose, ...props }) => {
       modalRoot!.removeChild(modalBody);
       document.body.removeAttribute('style');
     };
-  }, [modalBody, props.isOpen]);
+  }, [modalBody]);
 
   // useEffect(() => {
   //   props.isOpen
