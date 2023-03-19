@@ -1,8 +1,7 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import cn from 'classnames';
 // import { Link } from 'react-router-dom';
 import { IPizzaItem } from '../../../../types/types';
-import Modal from '../../../ui/Modal';
 import styles from './index.module.scss';
 
 interface IProps {
@@ -11,36 +10,26 @@ interface IProps {
   onClick(item: IPizzaItem): void;
 }
 
-export const PizzaBlock: FC<IProps> = props => {
+export const PizzaBlock: FC<IProps> = (props) => {
   const { imageUrl, title, price /*productId*/ } = props.data;
 
   const selectButtonClassName = cn(styles.button, styles.buttonOutline, styles.buttonAdd);
 
   const handleBlockClick = useCallback(() => {
     props.onClick(props.data);
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <li
-      className={styles.pizzaBlock}
-      onClick={handleBlockClick}
-    >
+    <li className={styles.pizzaBlock} onClick={handleBlockClick}>
       <div /*to={`/pizza/${productId}`}*/>
-        <img
-          className={styles.image}
-          src={imageUrl}
-          alt="Pizza"
-        />
+        <img className={styles.image} src={imageUrl} alt='Pizza' />
 
-        <h4 className={styles.title}>
-          {title}
-        </h4>
+        <h4 className={styles.title}>{title}</h4>
       </div>
 
       <div className={styles.bottom}>
-        <div className={styles.price}>
-          от {price} ₽
-        </div>
+        <div className={styles.price}>от {price} ₽</div>
 
         <div className={selectButtonClassName}>
           <svg

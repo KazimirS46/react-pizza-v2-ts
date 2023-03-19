@@ -16,14 +16,20 @@ const Modal: FC<IProps> = ({ onClose, ...props }) => {
   useEffect(() => {
     const modalRoot = document.getElementById('modal-root');
 
-    document.body.setAttribute('style', 'overflow: hidden');
     modalRoot!.appendChild(modalBody);
+    props.isOpen && document.body.setAttribute('style', 'overflow: hidden');
 
     return () => {
-      document.body.removeAttribute('style');
       modalRoot!.removeChild(modalBody);
+      document.body.removeAttribute('style');
     };
-  }, [modalBody]);
+  }, [modalBody, props.isOpen]);
+
+  // useEffect(() => {
+  //   props.isOpen
+  //     ? document.body.setAttribute('style', 'overflow: hidden')
+  //     : document.body.removeAttribute('style');
+  // }, [props.isOpen]);
 
   if (!props.isOpen) {
     return null;
@@ -31,14 +37,11 @@ const Modal: FC<IProps> = ({ onClose, ...props }) => {
 
   return ReactDOM.createPortal(
     <div className={styles.modal}>
-      <div
-        className={styles.modalOverlay}
-        onClick={onClose}
-      >
+      <div className={styles.modalOverlay} onClick={onClose}>
         {props.children}
       </div>
     </div>,
-    modalBody,
+    modalBody
   );
 };
 

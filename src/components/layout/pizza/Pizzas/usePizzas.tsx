@@ -19,6 +19,7 @@ const usePizzas = () => {
 
   useEffect(() => {
     getPizzas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, sort, order]);
 
   return {
@@ -26,6 +27,6 @@ const usePizzas = () => {
     category,
     loading,
   };
-}
+};
 
 export default usePizzas;
