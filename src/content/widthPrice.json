@@ -1,5 +1,5 @@
 [
-  { "width": "small", "price": 0 },
-  { "width": "medium", "price": 50 },
-  { "width": "large", "price": 100 }
+  { "id": 0, "widthName": 26, "width": "small", "price": 0 },
+  { "id": 1, "widthName": 30, "width": "medium", "price": 50 },
+  { "id": 2, "widthName": 40, "width": "large", "price": 100 }
 ]

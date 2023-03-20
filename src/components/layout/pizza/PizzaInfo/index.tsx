@@ -1,8 +1,16 @@
 import { FC } from 'react';
-
 import styles from './PizzaInfo.module.scss';
-import { IPizzaItem } from '../../../../types/types';
 import Loader from '../../../ui/Loader';
+import thicknessArr from '../../../../content/thicknessPrice.json';
+import widthArr from '../../../../content/widthPrice.json';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import {
+  IThicknessPrice,
+  IWidthPrice,
+  setSize,
+  setTHickness,
+} from '../../../../redux/slices/filterSlice';
+import { IPizzaItem } from '../../../../types/types';
 
 interface IProps {
   data: IPizzaItem | null;
@@ -10,6 +18,15 @@ interface IProps {
 }
 
 export const PizzaInfo: FC<IProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const { thickness, size } = useAppSelector((state) => state.filter);
+  const chooseThickness = (thickness: IThicknessPrice) => {
+    dispatch(setTHickness(thickness));
+  };
+  const chooseSize = (size: IWidthPrice) => {
+    dispatch(setSize(size));
+  };
+
   if (!props.data) {
     return <Loader />;
   }
@@ -28,13 +45,26 @@ export const PizzaInfo: FC<IProps> = (props) => {
         </div>
         <div className={styles.selector}>
           <ul>
-            <li className={styles.active}>тонкое</li>
-            <li>традиционное</li>
+            {thicknessArr.map((el: IThicknessPrice) => (
+              <li
+                key={el.id}
+                className={thickness.id === el.id ? styles.active : ''}
+                onClick={() => chooseThickness(el)}
+              >
+                {el.thicknessName}
+              </li>
+            ))}
           </ul>
           <ul>
-            <li className={styles.active}>26 см.</li>
-            <li>30 см.</li>
-            <li>40 см.</li>
+            {widthArr.map((widthEl: IWidthPrice) => (
+              <li
+                key={widthEl.id}
+                className={size.id === widthEl.id ? styles.active : ''}
+                onClick={() => chooseSize(widthEl)}
+              >
+                {widthEl.widthName + 'см.'}
+              </li>
+            ))}
           </ul>
         </div>
         <div className={styles.bottom}>

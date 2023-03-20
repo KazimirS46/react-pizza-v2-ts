@@ -4,8 +4,7 @@ import styles from './Sort.module.scss';
 
 import sortList from '../../../../content/sortList.json';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { setOrder, setSort } from '../../../../redux/slices/filterSlice';
-import { ISortItem } from '../../../../types/types';
+import { ISortItem, setOrder, setSort } from '../../../../redux/slices/filterSlice';
 
 const Sort: React.FC = () => {
   const dispatch = useAppDispatch();

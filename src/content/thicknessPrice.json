@@ -1,4 +1,4 @@
 [
-  { "thickness": "thin", "price": 0 },
-  { "thickness": "traditional", "price": 50 }
+  { "id": 0, "thickness": "thin", "thicknessName": "тонкое", "price": 0 },
+  { "id": 1, "thickness": "traditional", "thicknessName": "традиционное", "price": 50 }
 ]

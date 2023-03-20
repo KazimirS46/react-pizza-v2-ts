@@ -16,7 +16,7 @@ const PizzaBlock: FC<IProps> = (props) => {
   return (
     <>
       <li className={styles.pizzaBlock}>
-        <div /*to={`/pizza/${productId}`}*/ onClick={() => props.onClick(props.data)}>
+        <div onClick={() => props.onClick(props.data)}>
           <img className={styles.image} src={imageUrl} alt='Pizza' />
           <h4 className={styles.title}>{title}</h4>
         </div>
