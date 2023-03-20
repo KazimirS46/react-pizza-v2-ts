@@ -1,35 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { IPizzaItem } from '../../../types/types';
-import { fetchPizzas } from '../../../redux/slices/pizzaSlice';
-import { Categories, categories } from '../common/Categories';
-import { PizzaBlock } from './PizzaBlock';
+import { FC } from 'react';
+import usePizzas from './usePizzas';
 import Loader from '../../ui/Loader';
 import Sort from '../common/Sort';
+import PizzaBlock from './PizzaBlock';
+import Modal from '../../ui/Modal';
+import { IPizzaItem } from '../../../types/types';
+import { Categories, categories } from '../common/Categories';
+import { PizzaInfo } from './PizzaInfo';
+import usePizzaModalData from './usePizzaModalData';
 
-export const Pizzas: React.FC = () => {
-  const dispatch = useAppDispatch();
-  let { pizzas, loading } = useAppSelector((state) => state.pizzas);
-  const { category, sort, order } = useAppSelector((state) => state.filter);
-
-  const getPizzas = () => {
-    const limit = 10;
-    const categoryStr = category > 0 ? `&category=${category}` : '';
-    const sortStr = `sortBy=${sort.sort}`;
-    const orderStr = order ? '&order=asc' : '&order=desc';
-
-    dispatch(fetchPizzas({ categoryStr, limit, sortStr, orderStr }));
-  };
-
-  React.useEffect(() => {
-    getPizzas();
-  }, [category, sort, order]);
-
-  const listItem = pizzas.map((pizza: IPizzaItem) => (
-    <PizzaBlock key={pizza.productId} {...pizza} />
-  ));
+export const Pizzas: FC = () => {
+  const { pizzas, category, loading } = usePizzas();
+  const { isPizzaModalOpen, pizzaModalData, handlePizzaModalClose, handlePizzaModalOpen } =
+    usePizzaModalData();
 
   return (
     <>
@@ -45,9 +29,15 @@ export const Pizzas: React.FC = () => {
             <Loader />
           </div>
         ) : (
-          listItem
+          pizzas.map((pizza: IPizzaItem) => (
+            <PizzaBlock key={pizza.productId} data={pizza} onClick={handlePizzaModalOpen} />
+          ))
         )}
       </ul>
+
+      <Modal isOpen={isPizzaModalOpen} onClose={handlePizzaModalClose}>
+        {pizzaModalData && <PizzaInfo data={pizzaModalData} onClose={handlePizzaModalClose} />}
+      </Modal>
     </>
   );
 };

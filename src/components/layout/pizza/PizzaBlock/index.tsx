@@ -1,34 +1,31 @@
-import React from 'react';
+import { FC } from 'react';
 // import { Link } from 'react-router-dom';
 
 import styles from './PizzaBlock.module.scss';
 
 import { IPizzaItem } from '../../../../types/types';
 
-export const PizzaBlock: React.FC<IPizzaItem> = (params) => {
-  const [visible, setVisible] = React.useState(false);
+interface IProps {
+  data: IPizzaItem;
+  onClick(data: IPizzaItem): void;
+}
 
-  React.useEffect(() => {
-    if (visible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const { imageUrl, title, price /*productId*/ } = params;
+const PizzaBlock: FC<IProps> = (props) => {
+  const { imageUrl, title, price /*productId*/ } = props.data;
 
   return (
     <>
-      <li className={styles.pizzaBlock} onClick={() => setVisible(true)}>
-        <div /*to={`/pizza/${productId}`}*/ className='ref'>
+      <li className={styles.pizzaBlock}>
+        <div /*to={`/pizza/${productId}`}*/ onClick={() => props.onClick(props.data)}>
           <img className={styles.image} src={imageUrl} alt='Pizza' />
           <h4 className={styles.title}>{title}</h4>
         </div>
         <div className={styles.bottom}>
           <div className={styles.price}>от {price} ₽</div>
-          <div className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}>
+          <div
+            className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}
+            onClick={() => props.onClick(props.data)}
+          >
             <svg
               width='12'
               height='12'
@@ -49,3 +46,5 @@ export const PizzaBlock: React.FC<IPizzaItem> = (params) => {
     </>
   );
 };
+
+export default PizzaBlock;
