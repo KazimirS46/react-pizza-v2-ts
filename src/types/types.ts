@@ -5,14 +5,18 @@ export interface IPizzaItem {
   title: string;
   types: [
     {
+      id: number;
       thickness: string;
       value: string;
+      price: number;
     }
   ];
   sizes: [
     {
-      width: string;
+      id: number;
       value: number;
+      width: string;
+      price: number;
     }
   ];
   price: number;

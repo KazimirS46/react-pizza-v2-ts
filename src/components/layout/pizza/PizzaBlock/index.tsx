@@ -7,16 +7,16 @@ import { IPizzaItem } from '../../../../types/types';
 
 interface IProps {
   data: IPizzaItem;
-  onClick(data: IPizzaItem): void;
+  open(data: IPizzaItem): void;
 }
 
 const PizzaBlock: FC<IProps> = (props) => {
-  const { imageUrl, title, price /*productId*/ } = props.data;
+  const { imageUrl, title, price } = props.data;
 
   return (
     <>
       <li className={styles.pizzaBlock}>
-        <div onClick={() => props.onClick(props.data)}>
+        <div onClick={() => props.open(props.data)}>
           <img className={styles.image} src={imageUrl} alt='Pizza' />
           <h4 className={styles.title}>{title}</h4>
         </div>
@@ -24,7 +24,7 @@ const PizzaBlock: FC<IProps> = (props) => {
           <div className={styles.price}>от {price} ₽</div>
           <div
             className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}
-            onClick={() => props.onClick(props.data)}
+            onClick={() => props.open(props.data)}
           >
             <svg
               width='12'

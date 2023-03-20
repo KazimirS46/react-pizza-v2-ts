@@ -30,7 +30,7 @@ export const Pizzas: FC = () => {
           </div>
         ) : (
           pizzas.map((pizza: IPizzaItem) => (
-            <PizzaBlock key={pizza.productId} data={pizza} onClick={handlePizzaModalOpen} />
+            <PizzaBlock key={pizza.productId} data={pizza} open={handlePizzaModalOpen} />
           ))
         )}
       </ul>

@@ -1,37 +1,32 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './PizzaInfo.module.scss';
-import Loader from '../../../ui/Loader';
-import thicknessArr from '../../../../content/thicknessPrice.json';
-import widthArr from '../../../../content/widthPrice.json';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import {
-  IThicknessPrice,
-  IWidthPrice,
-  setSize,
-  setTHickness,
-} from '../../../../redux/slices/filterSlice';
 import { IPizzaItem } from '../../../../types/types';
 
+interface IActiveType {
+  id: number;
+  thickness: string;
+  value: string;
+  price: number;
+}
+
+interface IActiveSize {
+  id: number;
+  value: number;
+  width: string;
+  price: number;
+}
+
 interface IProps {
-  data: IPizzaItem | null;
+  data: IPizzaItem;
   onClose(): void;
 }
 
 export const PizzaInfo: FC<IProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const { thickness, size } = useAppSelector((state) => state.filter);
-  const chooseThickness = (thickness: IThicknessPrice) => {
-    dispatch(setTHickness(thickness));
-  };
-  const chooseSize = (size: IWidthPrice) => {
-    dispatch(setSize(size));
-  };
+  const { imageUrl, title, description, price, types, sizes } = props.data;
 
-  if (!props.data) {
-    return <Loader />;
-  }
-
-  const { imageUrl, title, description, price } = props.data;
+  const [activeType, setActiveType] = useState<IActiveType>(types[0]);
+  const [activeSize, setActiveSize] = useState<IActiveSize>(sizes[0]);
+  const finalPrice = price + activeType.price + activeSize.price;
 
   return (
     <div className={styles.container}>
@@ -45,24 +40,24 @@ export const PizzaInfo: FC<IProps> = (props) => {
         </div>
         <div className={styles.selector}>
           <ul>
-            {thicknessArr.map((el: IThicknessPrice) => (
+            {types.map((type) => (
               <li
-                key={el.id}
-                className={thickness.id === el.id ? styles.active : ''}
-                onClick={() => chooseThickness(el)}
+                key={type.id}
+                className={activeType.id === type.id ? styles.active : ''}
+                onClick={() => setActiveType(type)}
               >
-                {el.thicknessName}
+                {type.value}
               </li>
             ))}
           </ul>
           <ul>
-            {widthArr.map((widthEl: IWidthPrice) => (
+            {sizes.map((size) => (
               <li
-                key={widthEl.id}
-                className={size.id === widthEl.id ? styles.active : ''}
-                onClick={() => chooseSize(widthEl)}
+                key={size.id}
+                className={activeSize.id === size.id ? styles.active : ''}
+                onClick={() => setActiveSize(size)}
               >
-                {widthEl.widthName + 'см.'}
+                {size.value + 'см.'}
               </li>
             ))}
           </ul>
@@ -82,7 +77,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
               />
             </svg>
             <p>
-              Добавить в корзину за <span className={styles.price}>{price} ₽</span>
+              Добавить в корзину за <span className={styles.price}>{finalPrice} ₽</span>
             </p>
             <i>2</i>
           </div>
