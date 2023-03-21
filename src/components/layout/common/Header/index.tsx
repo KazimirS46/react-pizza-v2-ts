@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 import pizzaLogo from '../../../../assets/img/pizza-logo.svg';
+import { useAppSelector } from '../../../../redux/hooks';
 
 const TEXT = {
   title: 'React Pizza V2',
@@ -11,6 +12,12 @@ const TEXT = {
 };
 
 export const Header: React.FC = () => {
+  const { totalPrice, products } = useAppSelector((state) => state.cart);
+
+  const countAmount = products.reduce((sum, product) => {
+    return (product.count ? product.count : 0) + sum;
+  }, 0);
+
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -23,7 +30,7 @@ export const Header: React.FC = () => {
         </Link>
         <div className={styles.cart}>
           <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
-            <span>520 ₽</span>
+            <span>{totalPrice}</span>
             <div className={styles.delimiter}></div>
             <svg
               width='18'
@@ -54,7 +61,7 @@ export const Header: React.FC = () => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>3</span>
+            <span>{countAmount}</span>
           </Link>
         </div>
       </div>
