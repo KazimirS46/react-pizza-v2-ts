@@ -39,7 +39,6 @@ const PizzaBlock: FC<IProps> = (props) => {
               />
             </svg>
             <span>Выбрать</span>
-            <i>2</i>
           </div>
         </div>
       </li>

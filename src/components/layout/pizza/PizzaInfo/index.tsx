@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './PizzaInfo.module.scss';
 import { IPizzaItem } from '../../../../types/types';
-import { useAppDispatch } from '../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { IActiveSize, IActiveType, addProduct } from '../../../../redux/slices/cartSlice';
 
 interface IProps {
@@ -11,12 +11,12 @@ interface IProps {
 
 export const PizzaInfo: FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
-
+  const { products } = useAppSelector((state) => state.cart);
   const { imageUrl, title, description, price, types, sizes, productId } = props.data;
-
   const [activeType, setActiveType] = useState<IActiveType>(types[0]);
   const [activeSize, setActiveSize] = useState<IActiveSize>(sizes[0]);
   const [changeID, setChangeID] = useState<number>(productId);
+  const [count, setCount] = useState<number>(0);
   const finalPrice = price + activeType.price + activeSize.price;
 
   const addProductToCart = () => {
@@ -30,8 +30,13 @@ export const PizzaInfo: FC<IProps> = (props) => {
   };
 
   useEffect(() => {
-    setChangeID((prev) => prev + activeType.price + activeSize.price);
-  }, [activeSize.price, activeType.price]);
+    setChangeID(price + activeType.price + activeSize.price);
+  }, [activeSize.price, activeType.price, price]);
+
+  useEffect(() => {
+    const productCount = products.find((product) => product.changeID === changeID);
+    setCount(productCount?.count ? productCount.count : 0);
+  }, [changeID, products]);
 
   return (
     <div className={styles.container}>
@@ -87,7 +92,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
             <p>
               Добавить в корзину за <span className={styles.price}>{finalPrice} ₽</span>
             </p>
-            <i>2</i>
+            <i>{count > 0 ? count : null}</i>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ export interface IActiveSize {
   price: number;
 }
 
-interface ICartItem extends IPizzaItem {
+export interface ICartItem extends IPizzaItem {
   count?: number;
   activeSize: IActiveSize;
   activeType: IActiveType;
