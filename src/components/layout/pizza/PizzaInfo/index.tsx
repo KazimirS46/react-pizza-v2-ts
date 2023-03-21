@@ -1,20 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from './PizzaInfo.module.scss';
 import { IPizzaItem } from '../../../../types/types';
-
-interface IActiveType {
-  id: number;
-  thickness: string;
-  value: string;
-  price: number;
-}
-
-interface IActiveSize {
-  id: number;
-  value: number;
-  width: string;
-  price: number;
-}
+import { useAppDispatch } from '../../../../redux/hooks';
+import { IActiveSize, IActiveType, addProduct } from '../../../../redux/slices/cartSlice';
 
 interface IProps {
   data: IPizzaItem;
@@ -22,11 +10,28 @@ interface IProps {
 }
 
 export const PizzaInfo: FC<IProps> = (props) => {
-  const { imageUrl, title, description, price, types, sizes } = props.data;
+  const dispatch = useAppDispatch();
+
+  const { imageUrl, title, description, price, types, sizes, productId } = props.data;
 
   const [activeType, setActiveType] = useState<IActiveType>(types[0]);
   const [activeSize, setActiveSize] = useState<IActiveSize>(sizes[0]);
+  const [changeID, setChangeID] = useState<number>(productId);
   const finalPrice = price + activeType.price + activeSize.price;
+
+  const addProductToCart = () => {
+    const productToCart = { ...props.data, activeSize, activeType, changeID, finalPrice };
+
+    dispatch(addProduct(productToCart));
+  };
+
+  const activateType = (type: IActiveType, id: number) => {
+    setActiveType(type);
+  };
+
+  useEffect(() => {
+    setChangeID((prev) => prev + activeType.price + activeSize.price);
+  }, [activeSize.price, activeType.price]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +49,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
               <li
                 key={type.id}
                 className={activeType.id === type.id ? styles.active : ''}
-                onClick={() => setActiveType(type)}
+                onClick={() => activateType(type, productId)}
               >
                 {type.value}
               </li>
@@ -63,7 +68,10 @@ export const PizzaInfo: FC<IProps> = (props) => {
           </ul>
         </div>
         <div className={styles.bottom}>
-          <div className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}>
+          <div
+            className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd}`}
+            onClick={addProductToCart}
+          >
             <svg
               width='12'
               height='12'
