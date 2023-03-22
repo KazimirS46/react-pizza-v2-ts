@@ -5,6 +5,7 @@ import styles from './Header.module.scss';
 
 import pizzaLogo from '../../../../assets/img/pizza-logo.svg';
 import { useAppSelector } from '../../../../redux/hooks';
+import useTotalCount from '../../../../hooks/useTotalParams';
 
 const TEXT = {
   title: 'React Pizza V2',
@@ -12,11 +13,8 @@ const TEXT = {
 };
 
 export const Header: React.FC = () => {
-  const { totalPrice, products } = useAppSelector((state) => state.cart);
-
-  const countAmount = products.reduce((sum, product) => {
-    return (product.count ? product.count : 0) + sum;
-  }, 0);
+  const totalPrice = useAppSelector((state) => state.cart.totalPrice);
+  const totalCount = useTotalCount();
 
   return (
     <div className={styles.header}>
@@ -61,7 +59,7 @@ export const Header: React.FC = () => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>{countAmount}</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
