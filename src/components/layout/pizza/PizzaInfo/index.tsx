@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import styles from './PizzaInfo.module.scss';
 import { IPizzaItem } from '../../../../types/types';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { IActiveSize, IActiveType, addProduct } from '../../../../redux/slices/cartSlice';
+import { addProduct } from '../../../../redux/slices/cartSlice';
+import usePizzaParams from './usePizzaParams';
 
 interface IProps {
   data: IPizzaItem;
@@ -13,25 +14,25 @@ export const PizzaInfo: FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.cart);
   const { imageUrl, title, description, price, types, sizes, productId } = props.data;
-  const [activeType, setActiveType] = useState<IActiveType>(types[0]);
-  const [activeSize, setActiveSize] = useState<IActiveSize>(sizes[0]);
-  const [changeID, setChangeID] = useState<number>(productId);
+  const {
+    activeSize,
+    activeType,
+    changeID,
+    finalPrice,
+    setActiveType,
+    setActiveSize,
+    setChangeID,
+  } = usePizzaParams(types, sizes, productId, price);
   const [count, setCount] = useState<number>(0);
-  const finalPrice = price + activeType.price + activeSize.price;
 
   const addProductToCart = () => {
     const productToCart = { ...props.data, activeSize, activeType, changeID, finalPrice };
-
     dispatch(addProduct(productToCart));
-  };
-
-  const activateType = (type: IActiveType, id: number) => {
-    setActiveType(type);
   };
 
   useEffect(() => {
     setChangeID(price + activeType.price + activeSize.price);
-  }, [activeSize.price, activeType.price, price]);
+  }, [activeSize.price, activeType.price, price, setChangeID]);
 
   useEffect(() => {
     const productCount = products.find((product) => product.changeID === changeID);
@@ -54,7 +55,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
               <li
                 key={type.id}
                 className={activeType.id === type.id ? styles.active : ''}
-                onClick={() => activateType(type, productId)}
+                onClick={() => setActiveType(type)}
               >
                 {type.value}
               </li>
