@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import styles from './CartItem.module.scss';
-// import { useAppSelector } from '../../../../redux/hooks';
 import {
   ICartItem,
   decreaseCount,
