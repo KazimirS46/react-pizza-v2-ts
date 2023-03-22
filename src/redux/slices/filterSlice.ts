@@ -13,6 +13,13 @@ export interface IFilterState {
   category: number;
 }
 
+interface IFilters {
+  category: number;
+  order: boolean;
+  sortBy: ISortItem;
+  title: string;
+}
+
 const initialState: IFilterState = {
   sort: { id: 1, sort: 'rating', sortName: 'популярности' },
   order: false,
@@ -33,8 +40,17 @@ export const filterSlice = createSlice({
     setOrder: (state) => {
       state.order = !state.order;
     },
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
+    },
+    setFilters: (state, action: PayloadAction<IFilters>) => {
+      state.category = action.payload.category;
+      state.order = action.payload.order;
+      state.searchValue = action.payload.title;
+      state.sort = action.payload.sortBy;
+    },
   },
 });
 
-export const { setCategory, setSort, setOrder } = filterSlice.actions;
+export const { setCategory, setSort, setOrder, setFilters, setSearchValue } = filterSlice.actions;
 export default filterSlice.reducer;

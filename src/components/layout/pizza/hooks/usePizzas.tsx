@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { fetchPizzas } from '../../../../redux/slices/pizzaSlice';
 
 const usePizzas = () => {
   const dispatch = useAppDispatch();
 
-  const { category, sort, order } = useAppSelector((state) => state.filter);
+  const { category, sort, order, searchValue } = useAppSelector((state) => state.filter);
   const { pizzas, loading } = useAppSelector((state) => state.pizzas);
 
   const getPizzas = () => {
@@ -13,19 +12,19 @@ const usePizzas = () => {
     const categoryStr = category > 0 ? `&category=${category}` : '';
     const sortStr = `sortBy=${sort.sort}`;
     const orderStr = order ? '&order=asc' : '&order=desc';
+    const search = searchValue.length > 0 ? `&title=${searchValue}` : '';
 
-    dispatch(fetchPizzas({ categoryStr, limit, sortStr, orderStr }));
+    dispatch(fetchPizzas({ categoryStr, limit, sortStr, orderStr, search }));
   };
-
-  useEffect(() => {
-    getPizzas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, sort, order]);
 
   return {
     pizzas,
     category,
     loading,
+    searchValue,
+    sort,
+    order,
+    getPizzas,
   };
 };
 

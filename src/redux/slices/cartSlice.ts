@@ -28,15 +28,15 @@ interface IState {
   products: ICartItem[];
 }
 
-const initialState: IState = {
-  totalPrice: 0,
-  products: [],
-};
-
 const calculationAmount = (state: ICartItem[]) => {
   return state.reduce((sum, product) => {
     return product.finalPrice * (product.count ? product.count : 1) + sum;
   }, 0);
+};
+
+const initialState: IState = {
+  totalPrice: 0,
+  products: [],
 };
 
 export const cartSlice = createSlice({
@@ -52,7 +52,6 @@ export const cartSlice = createSlice({
     },
 
     removeProduct: (state, action: PayloadAction<number>) => {
-      console.log(action.payload);
       state.products = state.products.filter((obj) => action.payload !== obj.changeID);
       state.totalPrice = calculationAmount(state.products);
     },
@@ -70,6 +69,7 @@ export const cartSlice = createSlice({
 
     clearProducts: (state) => {
       state.products = [];
+      state.totalPrice = calculationAmount(state.products);
     },
   },
 });

@@ -1,0 +1,61 @@
+.root {
+  position: relative;
+
+  .icon {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    width: 20px;
+    height: auto;
+    opacity: 0.5;
+  }
+
+  .input {
+    width: 400px;
+    padding: 10px 40px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .clearIcon {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    width: 20px;
+    height: auto;
+    opacity: 0.5;
+    fill: none;
+    stroke: #000;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    & .input {
+      width: 270px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    & .input {
+      width: 200px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    & .input {
+      width: 270px;
+      font-size: 12px;
+    }
+  }
+}

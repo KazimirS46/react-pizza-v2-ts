@@ -6,6 +6,7 @@ import styles from './Header.module.scss';
 import pizzaLogo from '../../../../assets/img/pizza-logo.svg';
 import { useAppSelector } from '../../../../redux/hooks';
 import useTotalCount from '../../../../hooks/useTotalParams';
+import Search from '../Search';
 
 const TEXT = {
   title: 'React Pizza V2',
@@ -26,6 +27,7 @@ export const Header: React.FC = () => {
             <p>{TEXT.subtitle}</p>
           </div>
         </Link>
+        <Search />
         <div className={styles.cart}>
           <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
             <span>{totalPrice}</span>

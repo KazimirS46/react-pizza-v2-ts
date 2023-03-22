@@ -19,6 +19,7 @@ interface IParams {
   limit: number;
   categoryStr: string;
   sortStr: string;
+  search: string;
 }
 
 const URL: string = `https://63aaeaf2fdc006ba604fd8b5.mockapi.io/items2`;
@@ -26,8 +27,10 @@ const URL: string = `https://63aaeaf2fdc006ba604fd8b5.mockapi.io/items2`;
 export const fetchPizzas = createAsyncThunk<IPizzaItem[], IParams>(
   'pizzas/fetchPizzas',
   async (params) => {
-    const { limit, categoryStr, sortStr, orderStr } = params;
-    const { data } = await axios.get(`${URL}?${sortStr}${categoryStr}&limit=${limit}${orderStr}`);
+    const { limit, categoryStr, sortStr, orderStr, search } = params;
+    const { data } = await axios.get(
+      `${URL}?${sortStr}${categoryStr}&limit=${limit}${orderStr}${search}`
+    );
     return data;
   }
 );
