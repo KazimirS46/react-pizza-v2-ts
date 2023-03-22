@@ -2,16 +2,16 @@
 import { FC, useEffect, useRef } from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import usePizzas from './hooks/usePizzas';
-import Loader from '../../ui/Loader';
-import Sort from '../common/Sort';
 import sortList from '../../../content/sortList.json';
-import PizzaBlock from './PizzaBlock';
+import Loader from '../../ui/Loader';
 import Modal from '../../ui/Modal';
-import { IPizzaItem } from '../../../types/types';
-import { Categories, categories } from '../common/Categories';
 import { PizzaInfo } from './PizzaInfo';
+import Sort from '../common/Sort';
+import { Categories, categories } from '../common/Categories';
+import PizzaBlock from './PizzaBlock';
+import { IPizzaItem } from '../../../types/types';
 import usePizzaModalData from './hooks/usePizzaModalData';
+import usePizzas from './hooks/usePizzas';
 import { setFilters } from '../../../redux/slices/filterSlice';
 import { useAppDispatch } from '../../../redux/hooks';
 
