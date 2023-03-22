@@ -31,8 +31,8 @@ export const PizzaInfo: FC<IProps> = (props) => {
   };
 
   useEffect(() => {
-    setChangeID(price + activeType.price + activeSize.price);
-  }, [activeSize.price, activeType.price, price, setChangeID]);
+    setChangeID(productId + activeType.price + activeSize.price);
+  }, [activeSize.price, activeType.price, productId, setChangeID]);
 
   useEffect(() => {
     const productCount = products.find((product) => product.changeID === changeID);
@@ -93,7 +93,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
             <p>
               Добавить в корзину за <span className={styles.price}>{finalPrice} ₽</span>
             </p>
-            <i>{count > 0 ? count : null}</i>
+            {count > 0 ? <i>{count}</i> : null}
           </div>
         </div>
       </div>

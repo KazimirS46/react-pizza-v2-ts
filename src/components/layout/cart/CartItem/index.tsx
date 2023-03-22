@@ -2,14 +2,35 @@ import { FC } from 'react';
 
 import styles from './CartItem.module.scss';
 // import { useAppSelector } from '../../../../redux/hooks';
-import { ICartItem } from '../../../../redux/slices/cartSlice';
+import {
+  ICartItem,
+  decreaseCount,
+  increaseCount,
+  removeProduct,
+} from '../../../../redux/slices/cartSlice';
+import { useAppDispatch } from '../../../../redux/hooks';
 
 interface IProps {
   data: ICartItem;
 }
 
 const CartItem: FC<IProps> = (props) => {
+  const dispatch = useAppDispatch();
   const pizza = props.data;
+  const id = props.data.changeID;
+  const count = pizza.count ? pizza.count : 1;
+
+  const remove = () => {
+    dispatch(removeProduct(id));
+  };
+
+  const increase = () => {
+    dispatch(increaseCount(id));
+  };
+
+  const decrease = () => {
+    dispatch(decreaseCount(id));
+  };
 
   return (
     <li className={styles.item}>
@@ -18,7 +39,7 @@ const CartItem: FC<IProps> = (props) => {
       </div>
       <div className={styles.infoBlock}>
         <div className={styles.itemInfo}>
-          <h3>{props.data.title}</h3>
+          <h3>{pizza.title}</h3>
           <p>
             {pizza.activeType.value} тесто, {pizza.activeSize.value} см.
           </p>
@@ -27,7 +48,7 @@ const CartItem: FC<IProps> = (props) => {
           <div className={styles.itemCount}>
             <button
               className={`${styles.button} ${styles.buttonOutline} ${styles.buttonCircle} ${styles.itemCountMinus}`}
-              // onClick={'count > 1 ? decrease : remove'}
+              onClick={count > 1 ? decrease : remove}
             >
               <svg
                 width='10'
@@ -49,7 +70,7 @@ const CartItem: FC<IProps> = (props) => {
             <b>{pizza.count}</b>
             <button
               className={`${styles.button} ${styles.buttonOutline} ${styles.buttonCircle} ${styles.itemCountPlus}`}
-              // onClick={'increaseCount'}
+              onClick={increase}
             >
               <svg
                 width='10'
@@ -70,12 +91,11 @@ const CartItem: FC<IProps> = (props) => {
             </button>
           </div>
           <div className={styles.itemPrice}>
-            {/* <b>{'finalPrice' * 'count'} ₽</b> */}
-            <b>{pizza.finalPrice}</b>
+            <b>{pizza.finalPrice * count} ₽</b>
           </div>
           <div className={styles.itemRemove}>
             <button
-              // onClick={'remove'}
+              onClick={remove}
               className={`${styles.button} ${styles.button} ${styles.buttonOutline} ${styles.buttonCircle}`}
             >
               <svg
