@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IPizzaItem } from '../../../types/types';
+import { IPizzaItem } from '../../../../types/types';
 
 const usePizzaModalData = () => {
   const [isPizzaModalOpen, setIsPizzaModalOpen] = useState<boolean>(false);

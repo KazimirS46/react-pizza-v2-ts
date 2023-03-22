@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { fetchPizzas } from '../../../redux/slices/pizzaSlice';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { fetchPizzas } from '../../../../redux/slices/pizzaSlice';
 
 const usePizzas = () => {
   const dispatch = useAppDispatch();

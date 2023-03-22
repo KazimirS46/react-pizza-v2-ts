@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IActiveSize, IActiveType } from '../../../../redux/slices/cartSlice';
+import { IActiveSize, IActiveType } from '../../../../../redux/slices/cartSlice';
 
 const usePizzaParams = (
   types: IActiveType[],

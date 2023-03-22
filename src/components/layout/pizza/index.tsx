@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC } from 'react';
-import usePizzas from './usePizzas';
+import usePizzas from './hooks/usePizzas';
 import Loader from '../../ui/Loader';
 import Sort from '../common/Sort';
 import PizzaBlock from './PizzaBlock';
@@ -8,7 +8,7 @@ import Modal from '../../ui/Modal';
 import { IPizzaItem } from '../../../types/types';
 import { Categories, categories } from '../common/Categories';
 import { PizzaInfo } from './PizzaInfo';
-import usePizzaModalData from './usePizzaModalData';
+import usePizzaModalData from './hooks/usePizzaModalData';
 
 export const Pizzas: FC = () => {
   const { pizzas, category, loading } = usePizzas();

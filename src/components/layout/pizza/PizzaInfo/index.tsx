@@ -3,7 +3,7 @@ import styles from './PizzaInfo.module.scss';
 import { IPizzaItem } from '../../../../types/types';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { addProduct } from '../../../../redux/slices/cartSlice';
-import usePizzaParams from './usePizzaParams';
+import usePizzaParams from './hooks/usePizzaParams';
 
 interface IProps {
   data: IPizzaItem;
