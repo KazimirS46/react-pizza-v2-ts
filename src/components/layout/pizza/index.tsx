@@ -60,7 +60,7 @@ export const Pizzas: FC = () => {
   // --------------------- Создание поисковой строки ----------------------------------
 
   useEffect(() => {
-    if (!isSearchBar.current) {
+    if (!isFirstPageLoad.current) {
       const queryString = qs.stringify({
         sortBy: sort.sort,
         category: category,
