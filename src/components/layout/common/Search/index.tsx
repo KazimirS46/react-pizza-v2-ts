@@ -13,7 +13,7 @@ const Search: FC = () => {
   const sendDefferedRequest = useCallback(
     debounce((value: string) => {
       dispatch(setSearchValue(value));
-    }, 250),
+    }, 1000),
     []
   );
 

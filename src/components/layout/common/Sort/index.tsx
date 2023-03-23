@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import styles from './Sort.module.scss';
 
@@ -6,9 +6,14 @@ import sortList from '../../../../content/sortList.json';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { ISortItem, setOrder, setSort } from '../../../../redux/slices/filterSlice';
 
-const Sort: React.FC = () => {
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
+
+const Sort: FC = () => {
   const dispatch = useAppDispatch();
-  const [popupStatus, setPopupStatus] = React.useState<boolean>(false);
+  const popupRef = useRef(null);
+  const [popupStatus, setPopupStatus] = useState<boolean>(false);
   const { sort, order } = useAppSelector((state) => state.filter);
 
   const openPopup = (): void => {
@@ -24,8 +29,21 @@ const Sort: React.FC = () => {
     dispatch(setOrder());
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+
+      if (popupRef.current && !_event.path.includes(popupRef.current)) {
+        setPopupStatus(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className={styles.sort}>
+    <div className={styles.sort} ref={popupRef}>
       <div className={styles.label}>
         <svg
           className={order ? styles.ascending : styles.descending}

@@ -8,9 +8,9 @@ interface IPizzasState {
   loading: 'pending' | 'uploaded' | 'error';
   error: {
     status: boolean;
-    name: string | undefined;
-    code: string | undefined;
-    message: string | undefined;
+    name: string;
+    code: string;
+    message: string;
   };
 }
 
@@ -62,10 +62,9 @@ export const pizzaSlice = createSlice({
       })
       .addCase(fetchPizzas.rejected, (state, action) => {
         state.loading = 'error';
-        state.error.status = true;
-        state.error.code = action.error.code;
-        state.error.message = action.error.message;
-        state.error.name = action.error.name;
+        state.error.code = action.error.code!;
+        state.error.message = action.error.message!;
+        state.error.name = action.error.name!;
         state.pizzas = [];
       });
   },

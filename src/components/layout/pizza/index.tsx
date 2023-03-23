@@ -14,18 +14,20 @@ import usePizzaModalData from './hooks/usePizzaModalData';
 import usePizzas from './hooks/usePizzas';
 import { setFilters } from '../../../redux/slices/filterSlice';
 import { useAppDispatch } from '../../../redux/hooks';
+import Error from '../common/Error';
+import NoteFoundBlock from '../common/NotFound';
 
 export const Pizzas: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { pizzas, category, loading, searchValue, sort, order, getPizzas } = usePizzas();
+  const { pizzas, loading, error, category, searchValue, sort, order, getPizzas } = usePizzas();
   const { isPizzaModalOpen, pizzaModalData, handlePizzaModalClose, handlePizzaModalOpen } =
     usePizzaModalData();
   const isSearchBar = useRef(false);
   const isFirstPageLoad = useRef(true);
 
-  // --------------------- проверка наличия поисковой строки -----------------------------
+  // --------------------- Проверка наличия поисковой строки -----------------------------
 
   useEffect(() => {
     if (window.location.search) {
@@ -47,7 +49,7 @@ export const Pizzas: FC = () => {
     }
   }, []);
 
-  // --------------------- Запросы на бэк ---------------------------------------------
+  // --------------------------------Запросы на бэк --------------------------------------
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -57,7 +59,7 @@ export const Pizzas: FC = () => {
     isSearchBar.current = false;
   }, [category, sort, order, searchValue]);
 
-  // --------------------- Создание поисковой строки ----------------------------------
+  // -------------------------- Создание поисковой строки --------------------------------
 
   useEffect(() => {
     if (!isFirstPageLoad.current) {
@@ -78,19 +80,32 @@ export const Pizzas: FC = () => {
         <Categories />
         <Sort />
       </div>
-      <h2 className='content__title'>{`${categories[category]} пиццы`}</h2>
+      <h2 className='content__title'>
+        {`${categories[category]} пиццы`}
+        {loading === 'pending' && ` Ищем пиццы...`}
+      </h2>
 
-      <ul className='content__items'>
-        {loading === 'pending' ? (
-          <div className='loading'>
-            <Loader />
-          </div>
-        ) : (
-          pizzas.map((pizza: IPizzaItem) => (
-            <PizzaBlock key={pizza.productId} data={pizza} open={handlePizzaModalOpen} />
-          ))
-        )}
-      </ul>
+      {loading === 'pending' && (
+        <div className='loading'>
+          <Loader />
+        </div>
+      )}
+
+      {loading === 'uploaded' && (
+        <>
+          <ul className='content__items'>
+            {pizzas.length === 0 ? (
+              <NoteFoundBlock />
+            ) : (
+              pizzas.map((pizza: IPizzaItem) => (
+                <PizzaBlock key={pizza.productId} data={pizza} open={handlePizzaModalOpen} />
+              ))
+            )}
+          </ul>
+        </>
+      )}
+
+      {error.status && <Error {...error} />}
 
       <Modal isOpen={isPizzaModalOpen} onClose={handlePizzaModalClose}>
         {pizzaModalData && <PizzaInfo data={pizzaModalData} onClose={handlePizzaModalClose} />}

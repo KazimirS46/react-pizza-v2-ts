@@ -5,7 +5,7 @@ const usePizzas = () => {
   const dispatch = useAppDispatch();
 
   const { category, sort, order, searchValue } = useAppSelector((state) => state.filter);
-  const { pizzas, loading } = useAppSelector((state) => state.pizzas);
+  const { pizzas, loading, error } = useAppSelector((state) => state.pizzas);
 
   const getPizzas = () => {
     const limit = 10;
@@ -19,8 +19,9 @@ const usePizzas = () => {
 
   return {
     pizzas,
-    category,
     loading,
+    error,
+    category,
     searchValue,
     sort,
     order,
