@@ -32,6 +32,7 @@ export const Pizzas: FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
+      console.log(params);
 
       const sort = sortList.find((type) => type.sort === params.sortBy);
       const order = params.order === 'asc' ? true : false;
@@ -70,40 +71,36 @@ export const Pizzas: FC = () => {
         order: order ? 'asc' : 'desc',
       });
       navigate(`?${queryString}`);
+      console.log(queryString);
     }
     isFirstPageLoad.current = false;
   }, [category, sort, order, searchValue]);
 
   return (
     <>
-      <div className='content__top'>
-        <Categories />
-        <Sort />
-      </div>
-      <h2 className='content__title'>
-        {`${categories[category]} пиццы`}
-        {loading === 'pending' && ` Ищем пиццы...`}
-      </h2>
-
       {loading === 'pending' && (
         <div className='loading'>
           <Loader />
         </div>
       )}
+      {loading === 'uploaded' &&
+        (pizzas.length === 0 ? (
+          <NoteFoundBlock />
+        ) : (
+          <>
+            <div className='content__top'>
+              <Categories />
+              <Sort />
+            </div>
+            <h2 className='content__title'>{`${categories[category]} пиццы`}</h2>
 
-      {loading === 'uploaded' && (
-        <>
-          <ul className='content__items'>
-            {pizzas.length === 0 ? (
-              <NoteFoundBlock />
-            ) : (
-              pizzas.map((pizza: IPizzaItem) => (
+            <ul className='content__items'>
+              {pizzas.map((pizza: IPizzaItem) => (
                 <PizzaBlock key={pizza.productId} data={pizza} open={handlePizzaModalOpen} />
-              ))
-            )}
-          </ul>
-        </>
-      )}
+              ))}
+            </ul>
+          </>
+        ))}
 
       {error.status && <Error {...error} />}
 
