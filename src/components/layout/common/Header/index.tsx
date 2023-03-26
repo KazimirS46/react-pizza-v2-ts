@@ -21,18 +21,21 @@ export const Header: React.FC = () => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        <Link to='/' className={styles.logo}>
+        <Link to='/react-pizza-v2-ts/' className={styles.logo}>
           <img src={pizzaLogo} alt='Pizza logo' />
           <div>
             <h1>{TEXT.title}</h1>
             <p>{TEXT.subtitle}</p>
           </div>
         </Link>
-        {location.pathname === '/' && (
+        {location.pathname === '/react-pizza-v2-ts/' && (
           <>
             <Search />
             <div className={styles.cart}>
-              <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
+              <Link
+                to='/react-pizza-v2-ts/cart'
+                className={`${styles.button} ${styles.buttonCart}`}
+              >
                 <span>{totalPrice}</span>
                 <div className={styles.delimiter}></div>
                 <svg
