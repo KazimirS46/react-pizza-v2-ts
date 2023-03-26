@@ -91,7 +91,8 @@ export const PizzaInfo: FC<IProps> = (props) => {
               />
             </svg>
             <p>
-              Добавить в корзину за <span className={styles.price}>{finalPrice} ₽</span>
+              Добавить <span className={styles.part}>в корзину за</span>{' '}
+              <span className={styles.price}>{finalPrice} ₽</span>
             </p>
             {count > 0 ? <i>{count}</i> : null}
           </div>

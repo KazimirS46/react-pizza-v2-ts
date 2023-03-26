@@ -78,6 +78,11 @@ export const Pizzas: FC = () => {
 
   return (
     <>
+      <div className='content__top'>
+        <Categories />
+        <Sort />
+      </div>
+
       {loading === 'pending' && (
         <div className='loading'>
           <Loader />
@@ -88,12 +93,7 @@ export const Pizzas: FC = () => {
           <NoteFoundBlock />
         ) : (
           <>
-            <div className='content__top'>
-              <Categories />
-              <Sort />
-            </div>
             <h2 className='content__title'>{`${categories[category]} пиццы`}</h2>
-
             <ul className='content__items'>
               {pizzas.map((pizza: IPizzaItem) => (
                 <PizzaBlock key={pizza.productId} data={pizza} open={handlePizzaModalOpen} />
