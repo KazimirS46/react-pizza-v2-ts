@@ -105,6 +105,8 @@
 
 .pizzaBlock {
   width: 280px;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 
   .image {
@@ -122,7 +124,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: auto;
   }
 
   .price {
@@ -133,11 +135,8 @@
   }
 
   @media (max-width: 1280px) {
-    display: flex;
-    flex-direction: column;
-
     width: 230px;
-    height: 452px;
+    height: 355px;
     .title {
       font-size: 18px;
       margin-bottom: auto;

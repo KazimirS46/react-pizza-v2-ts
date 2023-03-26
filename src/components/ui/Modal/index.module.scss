@@ -63,3 +63,26 @@
 .buttonClose {
   position: absolute;
 }
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 90%;
+  }
+}
+@media (max-width: 425px) {
+  .modalContent {
+    width: 80%;
+
+    .buttonClose {
+      top: 5px;
+      right: 5px;
+      border: none;
+
+      svg {
+        .path {
+          fill: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+}

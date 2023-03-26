@@ -46,7 +46,7 @@ export const PizzaInfo: FC<IProps> = (props) => {
       </div>
       <div className={styles.infoContainer}>
         <h4 className={styles.title}>{title}</h4>
-        <div className='description'>
+        <div className={styles.description}>
           <p>{description}</p>
         </div>
         <div className={styles.selector}>
