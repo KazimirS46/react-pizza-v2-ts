@@ -11,7 +11,7 @@ import NoteFoundBlock from './components/layout/common/NotFound';
 function App() {
   return (
     <Routes>
-      <Route path='react-pizza-v2-ts/' element={<FirstLayout />}>
+      <Route path='/' element={<FirstLayout />}>
         <Route index element={<Pizzas />}></Route>
         <Route path='cart' element={<CartPage />}></Route>
         <Route path='pizza/:id' element={<FullPizza />}></Route>

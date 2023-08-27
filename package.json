@@ -2,7 +2,7 @@
   "name": "react-pizza-v2-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kazimirs46.github.io/react-pizza-v2-ts/",
+  "homepage": "https://kazimirs46.github.io/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
