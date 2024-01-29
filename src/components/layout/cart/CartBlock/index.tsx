@@ -114,7 +114,7 @@ export const CartBlock: React.FC = () => {
           </div>
           <div className={styles.cartBottomButtons}>
             <Link
-              to='/'
+              to='/react-pizza-v2-ts/'
               className={`${styles.button} ${styles.buttonOutline} ${styles.buttonAdd} ${styles.goBackBtn}`}
             >
               <svg
